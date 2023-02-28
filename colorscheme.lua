@@ -1,2 +1,2 @@
 -- Set colorscheme to use
-return "astronvim"
+return "astrodark"

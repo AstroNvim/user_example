@@ -22,8 +22,6 @@ return {
     -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
     ["<Tab>"] = {":bnext<CR>", desc = "Next buffer" },
     ["<S-Tab>"] = {":bprevious<CR>", desc = "Previous buffer" },
-    -- { "<Tab>", ":bnext<CR>", { noremap = true, silent = true } },
-    -- { "<S-Tab>", ":bprevious<CR>", { noremap = true, silent = true } },
   },
   t = {
     -- setting a mapping to false will disable it

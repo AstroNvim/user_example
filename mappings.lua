@@ -22,6 +22,7 @@ return {
     -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
     ["<Tab>"] = {":bnext<CR>", desc = "Next buffer" },
     ["<S-Tab>"] = {":bprevious<CR>", desc = "Previous buffer" },
+    ["gi"] = {vim.lsp.buf.implementation, desc = "Go to implementation"},
   },
   t = {
     -- setting a mapping to false will disable it

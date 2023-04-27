@@ -1,4 +1,5 @@
 return {
+  { "catppuccin/nvim", name = "catppuccin" },
   {
     "scalameta/nvim-metals",
     dependencies = {

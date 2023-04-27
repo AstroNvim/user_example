@@ -1,3 +1,5 @@
+vim.cmd("highlight NotifyBackground guibg=NONE ctermbg=NONE")
+
 return {
   -- Configure AstroNvim updates
   updater = {

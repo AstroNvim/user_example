@@ -22,15 +22,13 @@ return {
   colorscheme = "catppuccin",
   
   plugins = {
-    init = {
-      {
-        "catppuccin/nvim",
-        as = "catppuccin",
-        config = function()
-          require("catppuccin").setup {}
-        end,
-      },
-    }
+    {
+      "catppuccin/nvim",
+      as = "catppuccin",
+      config = function()
+        require("catppuccin").setup {}
+      end,
+    },
   },
 
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on

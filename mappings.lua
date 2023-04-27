@@ -20,8 +20,8 @@ return {
     ["<leader>b"] = { name = "Buffers" },
     -- quick save
     -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
-    ["<Tab>"] = { {":bnext<CR>", desc = "Next buffer"}, noremap = true, silent = true },
-    ["<S-Tab>"] = { {":bprevious<CR>", desc = "Previous buffer"}, noremap = true, silent = true },
+    ["<Tab>"] = {":bnext<CR>", desc = "Next buffer" },
+    ["<S-Tab>"] = {":bprevious<CR>", desc = "Previous buffer" },
     -- { "<Tab>", ":bnext<CR>", { noremap = true, silent = true } },
     -- { "<S-Tab>", ":bprevious<CR>", { noremap = true, silent = true } },
   },

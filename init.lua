@@ -30,7 +30,7 @@ return {
       config = function()
         require("catppuccin").setup {
           {
-            background_color = "#282c34",
+            background_colour = "#282c34",
           }
         }
       end,

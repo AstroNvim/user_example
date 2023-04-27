@@ -22,7 +22,7 @@ return {
   colorscheme = "catppuccin",
   
   plugins = {
-    init {
+    init = {
       {
         "catppuccin/nvim",
         as = "catppuccin",

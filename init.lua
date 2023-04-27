@@ -28,11 +28,7 @@ return {
       "catppuccin/nvim",
       as = "catppuccin",
       config = function()
-        require("catppuccin").setup {
-          {
-            background_colour = "#282c34",
-          }
-        }
+        require("catppuccin").setup {}
       end,
     },
   },

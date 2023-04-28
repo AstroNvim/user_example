@@ -2,7 +2,7 @@ return {
   {
       "scalameta/nvim-metals",
       config = function()
-        require("metals").config()
+        require("metals2").config()
       end,
   },
 }

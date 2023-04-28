@@ -10,8 +10,11 @@ return {
       local metals_config = require("metals").bare_config()
 
       metals_config.settings = {
+        superMethodLensesEnabled = true,
         showImplicitArguments = true,
-        excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+        showInferredType = true,
+        showImplicitConversionsAndClasses = true,
+        excludedPackages = {},
       }
 
       metals_config.init_options.statusBarProvider = "on"

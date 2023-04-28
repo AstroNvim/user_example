@@ -35,7 +35,7 @@ return {
     ["<leader>ae"] = {function() vim.diagnostic.setqflist({ severity = "E" }) end, desc = "All workspace errors"},
     ["<leader>aw"] = {function() vim.diagnostic.setqflist({ severity = "W" }) end, desc = "All workspace warnings"},
     ["<leader>d"] = {vim.diagnostic.setloclist, desc = "Buffer diagnostics" },
-    ["<leader>f"] = {vim.lsp.buf.formatting, desc = "Format" },
+    ["<leader>kf"] = {vim.lsp.buf.formatting, desc = "Format" },
     ["[c"] = {function() vim.diagnostic.goto_prev({ wrap = false }) end, desc = "Previous diagnostic" },
     ["]c"] = {function() vim.diagnostic.goto_next({ wrap = false }) end, desc = "Next diagnostic" },
     

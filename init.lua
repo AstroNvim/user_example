@@ -289,8 +289,7 @@ local config = {
       "nvim-treesitter/nvim-treesitter",
       opts = function(_, opts)
         -- add more things to the ensure_installed table protecting against community packs modifying it
-        if not opts.ensure_installed then opts.ensure_installed = {} end
-        require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
+        opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
           -- "lua"
         })
       end,
@@ -301,8 +300,7 @@ local config = {
       -- overrides `require("mason-lspconfig").setup(...)`
       opts = function(_, opts)
         -- add more things to the ensure_installed table protecting against community packs modifying it
-        if not opts.ensure_installed then opts.ensure_installed = {} end
-        require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
+        opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
           -- "lua_ls",
         })
       end,
@@ -313,8 +311,7 @@ local config = {
       -- overrides `require("mason-null-ls").setup(...)`
       opts = function(_, opts)
         -- add more things to the ensure_installed table protecting against community packs modifying it
-        if not opts.ensure_installed then opts.ensure_installed = {} end
-        require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
+        opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
           -- "prettier",
           -- "stylua",
         })
@@ -325,8 +322,7 @@ local config = {
       -- overrides `require("mason-nvim-dap").setup(...)`
       opts = function(_, opts)
         -- add more things to the ensure_installed table protecting against community packs modifying it
-        if not opts.ensure_installed then opts.ensure_installed = {} end
-        require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
+        opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
           -- "python",
         })
       end,

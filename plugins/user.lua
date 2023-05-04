@@ -64,6 +64,8 @@ return {
   },
   {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    -- todo - make it always load
+    ft = { "sbt", "scala", "java" },
     config = function()
       require("lsp_lines").setup()
     end,

@@ -6,7 +6,7 @@ return {
     -- overrides `require("mason-lspconfig").setup(...)`
     opts = function(_, opts)
       -- add more things to the ensure_installed table protecting against community packs modifying it
-      opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
+      opts.ensure_installed = require("astrocore.utils").list_insert_unique(opts.ensure_installed, {
         -- "lua_ls",
       })
     end,
@@ -17,7 +17,7 @@ return {
     -- overrides `require("mason-null-ls").setup(...)`
     opts = function(_, opts)
       -- add more things to the ensure_installed table protecting against community packs modifying it
-      opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
+      opts.ensure_installed = require("astrocore.utils").list_insert_unique(opts.ensure_installed, {
         -- "prettier",
         -- "stylua",
       })
@@ -28,7 +28,7 @@ return {
     -- overrides `require("mason-nvim-dap").setup(...)`
     opts = function(_, opts)
       -- add more things to the ensure_installed table protecting against community packs modifying it
-      opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
+      opts.ensure_installed = require("astrocore.utils").list_insert_unique(opts.ensure_installed, {
         -- "python",
       })
     end,

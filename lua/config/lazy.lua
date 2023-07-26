@@ -18,7 +18,8 @@ if USE_STABLE then table.insert(spec, { import = "astronvim.lazy_snapshot" }) en
 require("lazy").setup {
   spec = vim.list_extend(spec, {
     -- AstroCommunity import any community modules here
-    -- { "AstroNvim/astrocommunity" },
+    -- TODO: Remove branch v4-refactor on release
+    { "AstroNvim/astrocommunity", branch = "v4-refactor" },
     -- { import = "astrocommunity.pack.lua" },
     { import = "plugins" }, -- import/override with your plugins
   }),

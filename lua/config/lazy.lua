@@ -19,7 +19,7 @@ require("lazy").setup {
   spec = vim.list_extend(spec, {
     -- AstroCommunity import any community modules here
     -- TODO: Remove branch v4-refactor on release
-    { "AstroNvim/astrocommunity", branch = "v4" },
+    -- { "AstroNvim/astrocommunity", branch = "v4" },
     -- { import = "astrocommunity.pack.lua" },
     { import = "plugins" }, -- import/override with your plugins
   }),

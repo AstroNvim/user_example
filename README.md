@@ -1,6 +1,7 @@
-# AstroNvim User Configuration Example
+# AstroNvim
 
-A user configuration template for [AstroNvim](https://github.com/AstroNvim/AstroNvim)
+My [AstroNvim](https://github.com/AstroNvim/AstroNvim) configuration Based on
+the user configuration template.
 
 ## 🛠️ Installation
 
@@ -14,19 +15,13 @@ mv ~/.local/share/nvim ~/.local/share/nvim.bak
 #### Clone AstroNvim
 
 ```shell
-git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
+git clone https://github.com/AstroNvim/AstroNvim "${XDG_CONFIG_HOME:-~/.config}/nvim"
 ```
 
-#### Create a new user repository from this template
-
-Press the "Use this template" button above to create a new repository to store your user configuration.
-
-You can also just clone this repository directly if you do not want to track your user configuration in GitHub.
-
-#### Clone the repository
+#### Clone my configuration
 
 ```shell
-git clone https://github.com/<your_user>/<your_repository> ~/.config/nvim/lua/user
+git clone https://github.com/manuuurino/astronvim_config "${XDG_CONFIG_HOME:-~/.config}/nvim/lua/user"
 ```
 
 #### Start Neovim

@@ -5,7 +5,7 @@ return {
 		spell = true,
 		-- NOTE:
 		-- if you dont have the spells, you have to let neovim download them.
-		-- run this command `nvim -u none -c "set spelllang=en_us,de_de spell" -c "quit"`
+		-- run this command `nvim --clean -c "set spelllang=en_us,de_de spell" -c "quit"`
 		spelllang = "en_us,de_de",
 		signcolumn = "auto",
 		wrap = false,

@@ -15,13 +15,13 @@ mv ~/.local/share/nvim ~/.local/share/nvim.bak
 #### Clone AstroNvim
 
 ```shell
-git clone https://github.com/AstroNvim/AstroNvim "${XDG_CONFIG_HOME:-~/.config}/nvim"
+git clone https://github.com/AstroNvim/AstroNvim "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim"
 ```
 
 #### Clone my configuration
 
 ```shell
-git clone https://github.com/manuuurino/astronvim_config "${XDG_CONFIG_HOME:-~/.config}/nvim/lua/user"
+git clone https://github.com/manuuurino/astronvim_config "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim/lua/user"
 ```
 
 #### Try my config in a docker container

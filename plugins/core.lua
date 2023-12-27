@@ -1,6 +1,25 @@
 ---@type LazySpec
 local plugins = {
 	{ "max397574/better-escape.nvim", enabled = false },
+
+	-- replacing null-ls with none-ls
+	{ "jose-elias-alvarez/null-ls.nvim", enabled = false },
+	{
+		-- source: https://github.com/AstroNvim/AstroNvim/blob/271c9c3f71c2e315cb16c31276dec81ddca6a5a6/lua/plugins/lsp.lua#L57-L68
+		"nvimtools/none-ls.nvim",
+		dependencies = {
+			{
+				"jay-babu/mason-null-ls.nvim",
+				cmd = { "NullLsInstall", "NullLsUninstall" },
+				opts = { handlers = {} },
+			},
+		},
+		event = "User AstroFile",
+		opts = function()
+			return { on_attach = require("astronvim.utils.lsp").on_attach }
+		end,
+	},
+
 	{
 		"goolord/alpha-nvim",
 		opts = function(_, opts)

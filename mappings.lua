@@ -1,3 +1,4 @@
+-- TODO: ensure the plugin is available. https://github.com/chaozwn/astronvim_with_coc_or_mason/blob/4a59dea217ae9c931764bea64b2085c0a9a8e27c/keymaps.lua#L12
 return {
 	n = {
 		-- better buffer navigation

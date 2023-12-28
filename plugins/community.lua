@@ -17,6 +17,8 @@ end
 ---@param import LazySpec
 ---@return LazySpec
 local function has_excecutable(excecutables, import)
+	-- TODO: some kind of callback? and or logic
+	-- TODO: warn the user if not found
 	for _, excecutable in ipairs(excecutables) do
 		if vim.fn.executable(excecutable) == 0 then return {} end
 	end
@@ -38,17 +40,19 @@ add({
 })
 
 add({
+	-- TEST: test without npm
+	-- try maybe the enable option and do has() to see if the excecutables are installed
 	-- TODO: also see this: https://github.com/chaozwn/astronvim_with_coc_or_mason/blob/4a59dea217ae9c931764bea64b2085c0a9a8e27c/plugins/community-pack.lua#L2
 	has_excecutable({ "npm" }, { import = "astrocommunity.pack.angular" }),
 	has_excecutable({ "python3", "npm" }, { import = "astrocommunity.pack.ansible" }),
 	has_excecutable({ "npm" }, { import = "astrocommunity.pack.bash" }),
 	has_excecutable({ "cargo" }, { import = "astrocommunity.pack.cmake" }),
-	{ import = "astrocommunity.pack.cpp" }, -- TODO: docker container says, its unsupported
+	has_excecutable({ "unzip" }, { import = "astrocommunity.pack.cpp" }), -- needs one of them: cc, gcc clang, cl, zig
 	has_excecutable({ "dotnet" }, { import = "astrocommunity.pack.cs" }),
 	has_excecutable({ "npm" }, { import = "astrocommunity.pack.docker" }),
 	has_excecutable({ "npm" }, { import = "astrocommunity.pack.html-css" }),
 	has_excecutable({ "npm" }, { import = "astrocommunity.pack.json" }),
-	has_excecutable({ "lua" }, { import = "astrocommunity.pack.lua" }),
+	has_excecutable({ "lua", "luarocks" }, { import = "astrocommunity.pack.lua" }),
 	has_excecutable({ "npm" }, { import = "astrocommunity.pack.markdown" }),
 	has_excecutable({ "npm" }, { import = "astrocommunity.pack.ps1" }),
 	has_excecutable({ "python" }, { import = "astrocommunity.pack.python" }),
@@ -56,6 +60,7 @@ add({
 	has_excecutable({ "npm" }, { import = "astrocommunity.pack.toml" }),
 	has_excecutable({ "deno" }, { import = "astrocommunity.pack.typescript-all-in-one" }),
 	has_excecutable({ "npm" }, { import = "astrocommunity.pack.yaml" }),
+	-- TEST: does it really need only these packages?
 	has_excecutable({ "alejandra", "deadnix", "statix" }, { import = "astrocommunity.pack.nix" }),
 })
 
@@ -122,7 +127,8 @@ add({
 })
 
 add({
-	has_excecutable({ "deno" }, { import = "astrocommunity.markdown-and-latex.peek-nvim" }),
+	{ import = "astrocommunity.markdown-and-latex.peek-nvim" },
+	{ import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
 })
 
 add({

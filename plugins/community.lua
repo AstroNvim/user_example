@@ -47,7 +47,8 @@ add({
 	has_excecutable({ "python3", "npm" }, { import = "astrocommunity.pack.ansible" }),
 	has_excecutable({ "npm" }, { import = "astrocommunity.pack.bash" }),
 	has_excecutable({ "cargo" }, { import = "astrocommunity.pack.cmake" }),
-	has_excecutable({ "unzip" }, { import = "astrocommunity.pack.cpp" }), -- needs one of them: cc, gcc clang, cl, zig
+	-- TODO: needs one of them: cc, gcc clang, cl, zig
+	has_excecutable({ "unzip" }, { import = "astrocommunity.pack.cpp" }),
 	has_excecutable({ "dotnet" }, { import = "astrocommunity.pack.cs" }),
 	has_excecutable({ "npm" }, { import = "astrocommunity.pack.docker" }),
 	has_excecutable({ "npm" }, { import = "astrocommunity.pack.html-css" }),

@@ -13,6 +13,17 @@ local function add(plugins)
 	end
 end
 
+---@param excecutables string[]
+---@param import LazySpec
+---@return LazySpec
+local function has_excecutable(excecutables, import)
+	for _, excecutable in ipairs(excecutables) do
+		if vim.fn.executable(excecutable) == 0 then return {} end
+	end
+
+	return import
+end
+
 -- seperate the section so it will be more readable
 
 add({
@@ -28,23 +39,24 @@ add({
 
 add({
 	-- TODO: also see this: https://github.com/chaozwn/astronvim_with_coc_or_mason/blob/4a59dea217ae9c931764bea64b2085c0a9a8e27c/plugins/community-pack.lua#L2
-	-- { import = "astrocommunity.pack.angular" },
-	{ import = "astrocommunity.pack.ansible" },
-	{ import = "astrocommunity.pack.bash" },
-	{ import = "astrocommunity.pack.cmake" },
-	{ import = "astrocommunity.pack.cpp" },
-	{ import = "astrocommunity.pack.cs" },
-	{ import = "astrocommunity.pack.docker" },
-	{ import = "astrocommunity.pack.html-css" },
-	{ import = "astrocommunity.pack.json" },
-	{ import = "astrocommunity.pack.lua" },
-	{ import = "astrocommunity.pack.markdown" },
-	{ import = "astrocommunity.pack.ps1" },
-	{ import = "astrocommunity.pack.python" },
-	{ import = "astrocommunity.pack.rust" },
-	{ import = "astrocommunity.pack.toml" },
-	{ import = "astrocommunity.pack.typescript-all-in-one" },
-	{ import = "astrocommunity.pack.yaml" },
+	has_excecutable({ "npm" }, { import = "astrocommunity.pack.angular" }),
+	has_excecutable({ "python3", "npm" }, { import = "astrocommunity.pack.ansible" }),
+	has_excecutable({ "npm" }, { import = "astrocommunity.pack.bash" }),
+	has_excecutable({ "cargo" }, { import = "astrocommunity.pack.cmake" }),
+	{ import = "astrocommunity.pack.cpp" }, -- TODO: docker container says, its unsupported
+	has_excecutable({ "dotnet" }, { import = "astrocommunity.pack.cs" }),
+	has_excecutable({ "npm" }, { import = "astrocommunity.pack.docker" }),
+	has_excecutable({ "npm" }, { import = "astrocommunity.pack.html-css" }),
+	has_excecutable({ "npm" }, { import = "astrocommunity.pack.json" }),
+	has_excecutable({ "lua" }, { import = "astrocommunity.pack.lua" }),
+	has_excecutable({ "npm" }, { import = "astrocommunity.pack.markdown" }),
+	has_excecutable({ "npm" }, { import = "astrocommunity.pack.ps1" }),
+	has_excecutable({ "python" }, { import = "astrocommunity.pack.python" }),
+	has_excecutable({ "cargo" }, { import = "astrocommunity.pack.rust" }),
+	has_excecutable({ "npm" }, { import = "astrocommunity.pack.toml" }),
+	has_excecutable({ "deno" }, { import = "astrocommunity.pack.typescript-all-in-one" }),
+	has_excecutable({ "npm" }, { import = "astrocommunity.pack.yaml" }),
+	has_excecutable({ "alejandra", "deadnix", "statix" }, { import = "astrocommunity.pack.nix" }),
 })
 
 add({
@@ -110,8 +122,7 @@ add({
 })
 
 add({
-	{ import = "astrocommunity.markdown-and-latex.peek-nvim" },
-	{ import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
+	has_excecutable({ "deno" }, { import = "astrocommunity.markdown-and-latex.peek-nvim" }),
 })
 
 add({

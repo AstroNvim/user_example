@@ -50,10 +50,16 @@ add({
 		cond = has_excecutable("cargo"),
 	},
 	{
-		-- TODO: needs one of them: cc, gcc clang, cl, zig
 		-- NOTE: even if these dependencies have been installed in alpine, mason doesnt want to install clangd
 		import = "astrocommunity.pack.cpp",
-		cond = has_excecutable("unzip"),
+		cond = has_excecutable("unzip")
+			and (
+				has_excecutable("cc")
+				or has_excecutable("gcc")
+				or has_excecutable("clangd")
+				or has_excecutable("cl")
+				or has_excecutable("zig")
+			),
 	},
 	{
 		import = "astrocommunity.pack.cs",
@@ -107,7 +113,9 @@ add({
 	{
 		-- TEST: does it really need only these packages?
 		import = "astrocommunity.pack.nix",
-		cond = has_excecutable("alejandra") and has_excecutable("deadnix") and has_excecutable("statix"),
+		cond = has_excecutable("alejandra")
+			and has_excecutable("deadnix")
+			and has_excecutable("statix"),
 	},
 })
 
@@ -219,12 +227,30 @@ add({
 			},
 			-- credits: https://code.mehalter.com/AstroNvim_user/~files/b9d13b6af65fa7c6ec271063355b4625af93b52e/lua/plugins/noice.lua
 			routes = {
-				{ filter = { event = "msg_show", cmdline = "^:lua" }, view = "messages" }, -- send lua output to split
-				{ filter = { event = "msg_show", min_height = 20 }, view = "messages" }, -- send long messages to split
-				{ filter = { event = "msg_show", find = "%d+L,%s%d+B" }, opts = { skip = true } }, -- skip save notifications
-				{ filter = { event = "msg_show", find = "^%d+ more lines$" }, opts = { skip = true } }, -- skip paste notifications
-				{ filter = { event = "msg_show", find = "^%d+ fewer lines$" }, opts = { skip = true } }, -- skip delete notifications
-				{ filter = { event = "msg_show", find = "^%d+ lines yanked$" }, opts = { skip = true } }, -- skip yank notifications
+				{
+					filter = { event = "msg_show", cmdline = "^:lua" },
+					view = "messages",
+				}, -- send lua output to split
+				{
+					filter = { event = "msg_show", min_height = 20 },
+					view = "messages",
+				}, -- send long messages to split
+				{
+					filter = { event = "msg_show", find = "%d+L,%s%d+B" },
+					opts = { skip = true },
+				}, -- skip save notifications
+				{
+					filter = { event = "msg_show", find = "^%d+ more lines$" },
+					opts = { skip = true },
+				}, -- skip paste notifications
+				{
+					filter = { event = "msg_show", find = "^%d+ fewer lines$" },
+					opts = { skip = true },
+				}, -- skip delete notifications
+				{
+					filter = { event = "msg_show", find = "^%d+ lines yanked$" },
+					opts = { skip = true },
+				}, -- skip yank notifications
 			},
 		},
 	},

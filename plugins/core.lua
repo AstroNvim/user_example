@@ -44,7 +44,7 @@ local plugins = {
 				button("LDR f o", "󰈙  Recents  "),
 				button("LDR S f", "  Find Recent sessions"),
 				button("LDR f p", "  Open Project  "),
-				button("LDR a c", "  Config  "),
+				button("LDR p c", "  Config  "),
 			}
 
 			return opts

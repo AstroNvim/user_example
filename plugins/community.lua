@@ -116,7 +116,6 @@ add({
 
 add({
 	{ import = "astrocommunity.motion.flash-nvim" },
-	{ import = "astrocommunity.motion.hop-nvim" },
 	{ import = "astrocommunity.motion.mini-surround" },
 })
 

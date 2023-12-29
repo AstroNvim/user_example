@@ -13,18 +13,7 @@ local function add(plugins)
 	end
 end
 
----@param excecutables string[]
----@param import LazySpec
----@return LazySpec
-local function has_excecutable(excecutables, import)
-	-- TODO: some kind of callback? and or logic
-	-- TODO: warn the user if not found
-	for _, excecutable in ipairs(excecutables) do
-		if vim.fn.executable(excecutable) == 0 then return {} end
-	end
-
-	return import
-end
+local has_excecutable = require("user.utils.dependencies").has_excecutable
 
 -- seperate the section so it will be more readable
 
@@ -42,27 +31,84 @@ add({
 add({
 	-- TEST: test without npm
 	-- try maybe the enable option and do has() to see if the excecutables are installed
-	-- TODO: also see this: https://github.com/chaozwn/astronvim_with_coc_or_mason/blob/4a59dea217ae9c931764bea64b2085c0a9a8e27c/plugins/community-pack.lua#L2
-	has_excecutable({ "npm" }, { import = "astrocommunity.pack.angular" }),
-	has_excecutable({ "python3", "npm" }, { import = "astrocommunity.pack.ansible" }),
-	has_excecutable({ "npm" }, { import = "astrocommunity.pack.bash" }),
-	has_excecutable({ "cargo" }, { import = "astrocommunity.pack.cmake" }),
-	-- TODO: needs one of them: cc, gcc clang, cl, zig
-	has_excecutable({ "unzip" }, { import = "astrocommunity.pack.cpp" }),
-	has_excecutable({ "dotnet" }, { import = "astrocommunity.pack.cs" }),
-	has_excecutable({ "npm" }, { import = "astrocommunity.pack.docker" }),
-	has_excecutable({ "npm" }, { import = "astrocommunity.pack.html-css" }),
-	has_excecutable({ "npm" }, { import = "astrocommunity.pack.json" }),
-	has_excecutable({ "lua", "luarocks" }, { import = "astrocommunity.pack.lua" }),
-	has_excecutable({ "npm" }, { import = "astrocommunity.pack.markdown" }),
-	has_excecutable({ "npm" }, { import = "astrocommunity.pack.ps1" }),
-	has_excecutable({ "python" }, { import = "astrocommunity.pack.python" }),
-	has_excecutable({ "cargo" }, { import = "astrocommunity.pack.rust" }),
-	has_excecutable({ "npm" }, { import = "astrocommunity.pack.toml" }),
-	has_excecutable({ "deno" }, { import = "astrocommunity.pack.typescript-all-in-one" }),
-	has_excecutable({ "npm" }, { import = "astrocommunity.pack.yaml" }),
-	-- TEST: does it really need only these packages?
-	has_excecutable({ "alejandra", "deadnix", "statix" }, { import = "astrocommunity.pack.nix" }),
+
+	--inspired by: https://github.com/chaozwn/astronvim_with_coc_or_mason/blob/4a59dea217ae9c931764bea64b2085c0a9a8e27c/plugins/community-pack.lua#L2
+	{
+		import = "astrocommunity.pack.angular",
+		cond = has_excecutable("npm"),
+	},
+	{
+		import = "astrocommunity.pack.ansible",
+		cond = has_excecutable("npm") and has_excecutable("python3"),
+	},
+	{
+		import = "astrocommunity.pack.bash",
+		cond = has_excecutable("npm"),
+	},
+	{
+		import = "astrocommunity.pack.cmake",
+		cond = has_excecutable("cargo"),
+	},
+	{
+		-- TODO: needs one of them: cc, gcc clang, cl, zig
+		-- NOTE: even if these dependencies have been installed in alpine, mason doesnt want to install clangd
+		import = "astrocommunity.pack.cpp",
+		cond = has_excecutable("unzip"),
+	},
+	{
+		import = "astrocommunity.pack.cs",
+		cond = has_excecutable("dotnet"),
+	},
+	{
+		import = "astrocommunity.pack.docker",
+		cond = has_excecutable("npm"),
+	},
+	{
+		import = "astrocommunity.pack.html-css",
+		cond = has_excecutable("npm"),
+	},
+	{
+		import = "astrocommunity.pack.json",
+		cond = has_excecutable("npm"),
+	},
+	{
+		-- TEST: does it need lua and luarocks?
+		import = "astrocommunity.pack.lua",
+		cond = has_excecutable("lua") and has_excecutable("luarocks"),
+	},
+	{
+		import = "astrocommunity.pack.markdown",
+		cond = has_excecutable("npm"),
+	},
+	{
+		import = "astrocommunity.pack.ps1",
+		cond = has_excecutable("npm"),
+	},
+	{
+		import = "astrocommunity.pack.python",
+		cond = has_excecutable("python"),
+	},
+	{
+		import = "astrocommunity.pack.rust",
+		cond = has_excecutable("cargo"),
+	},
+	{
+		import = "astrocommunity.pack.toml",
+		cond = has_excecutable("npm"),
+	},
+	{
+		import = "astrocommunity.pack.typescript-all-in-one",
+		cond = has_excecutable("deno"),
+	},
+	{
+		import = "astrocommunity.pack.yaml",
+		cond = has_excecutable("npm"),
+	},
+	{
+		-- TEST: does it really need only these packages?
+		import = "astrocommunity.pack.nix",
+		cond = has_excecutable("alejandra") and has_excecutable("deadnix") and has_excecutable("statix"),
+	},
 })
 
 add({
@@ -128,8 +174,10 @@ add({
 })
 
 add({
-	{ import = "astrocommunity.markdown-and-latex.peek-nvim" },
-	{ import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
+	{
+		import = "astrocommunity.markdown-and-latex.peek-nvim",
+		cond = has_excecutable("deno"),
+	},
 })
 
 add({

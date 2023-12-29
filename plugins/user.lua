@@ -2,6 +2,8 @@
 -- TODO: neogen and implement like this: https://code.mehalter.com/AstroNvim_user/~files/v4/lua/plugins/neogen.lua
 -- TODO: seems interesting, does also include vscode tasks https://github.com/stevearc/overseer.nvim
 
+local is_on_glibc = require("user.utils.dependencies").is_on_glibc
+
 ---@type LazySpec
 local plugins = {
 	{
@@ -79,6 +81,7 @@ local plugins = {
 		-- credits: https://github.com/AstroNvim/astrocommunity/blob/6f3ce1b6349a29975cbd1af8427f7a52aaef936d/lua/astrocommunity/completion/codeium-vim/init.lua
 		"Exafunction/codeium.vim",
 		event = "User AstroFile",
+		enbale = is_on_glibc(),
 		config = function()
 			vim.keymap.set("i", "<C-g>", function()
 				return vim.fn["codeium#Accept"]()

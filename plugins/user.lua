@@ -81,7 +81,7 @@ local plugins = {
 		-- credits: https://github.com/AstroNvim/astrocommunity/blob/6f3ce1b6349a29975cbd1af8427f7a52aaef936d/lua/astrocommunity/completion/codeium-vim/init.lua
 		"Exafunction/codeium.vim",
 		event = "User AstroFile",
-		enbale = is_on_glibc(),
+		cond = is_on_glibc(),
 		config = function()
 			vim.keymap.set("i", "<C-g>", function()
 				return vim.fn["codeium#Accept"]()

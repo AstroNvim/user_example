@@ -38,6 +38,8 @@ local mappings = {
 		["J"] = { "mzJ`z" },
 		["<C-d>"] = { "<C-d>zz", desc = "Scroll down" },
 		["<C-u>"] = { "<C-u>zz", desc = "Scroll up" },
+		["<C-o>"] = { "<C-o>zz", desc = "Jump backward" },
+		["<C-i>"] = { "<C-i>zz", desc = "Jump forward" },
 		["n"] = { "nzzzv" },
 		["N"] = { "Nzzzv" },
 		["Q"] = { "nop" },

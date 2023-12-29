@@ -77,6 +77,7 @@ local plugins = {
 	},
 	{
 		-- credits: https://github.com/AstroNvim/astrocommunity/blob/6f3ce1b6349a29975cbd1af8427f7a52aaef936d/lua/astrocommunity/completion/codeium-vim/init.lua
+		-- FIXME: <C-;> and <C-,> not working?
 		"Exafunction/codeium.vim",
 		event = "User AstroFile",
 		config = function()

@@ -13,9 +13,11 @@ local function add(plugins)
 	end
 end
 
-local has_excecutable = require("user.utils.dependencies").has_excecutable
+local dependencies = require("user.utils.dependencies")
+local has_excecutable = dependencies.has_excecutable
+local is_on_alpine = dependencies.is_on_alpine
 
--- seperate the section so it will be more readable
+-- seperating into sections so it is more readable
 
 add({
 	{ import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
@@ -50,9 +52,11 @@ add({
 		cond = has_excecutable("cargo"),
 	},
 	{
-		-- NOTE: even if these dependencies have been installed in alpine, mason doesnt want to install clangd
+		-- NOTE: even if these dependencies have been installed in alpine, mason doesnt want to install clangd or codelldb
+		--       theres also an issue about it. https://github.com/williamboman/mason.nvim/issues/1402
 		import = "astrocommunity.pack.cpp",
-		cond = has_excecutable("unzip")
+		cond = not is_on_alpine()
+			and has_excecutable("unzip")
 			and (
 				has_excecutable("cc")
 				or has_excecutable("gcc")

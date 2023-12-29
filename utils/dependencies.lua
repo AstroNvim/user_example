@@ -11,7 +11,13 @@ local function is_on_glibc()
 	return result:match("GNU libc") ~= nil
 end
 
+local function is_on_alpine()
+	local output = vim.fn.system("cat /etc/os-release")
+	return string.find(output, "alpine") ~= nil
+end
+
 return {
 	is_on_glibc = is_on_glibc,
 	has_excecutable = has_excecutable,
+	is_on_alpine = is_on_alpine,
 }

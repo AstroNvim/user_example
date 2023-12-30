@@ -208,6 +208,64 @@ local plugins = {
 		event = "User AstroFile",
 		cmd = { "TodoTrouble", "TodoTelescope", "TodoLocList", "TodoQuickFix" },
 	},
+	-- credits: https://github.com/LazyVim/LazyVim/blob/879e29504d43e9f178d967ecc34d482f902e5a91/lua/lazyvim/plugins/ui.lua#L214-L275
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		event = "User AstroFile",
+		opts = {
+			indent = {
+				char = "▏",
+				tab_char = "▏",
+			},
+			scope = {
+				enabled = false,
+			},
+			exclude = {
+				filetypes = {
+					"help",
+					"alpha",
+					"dashboard",
+					"neo-tree",
+					"Trouble",
+					"trouble",
+					"lazy",
+					"mason",
+					"notify",
+					"toggleterm",
+					"lazyterm",
+				},
+			},
+		},
+		main = "ibl",
+	},
+	{
+		"echasnovski/mini.indentscope",
+		event = "User AstroFile",
+		opts = {
+			symbol = "▏",
+			options = { try_as_border = true },
+		},
+		init = function()
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = {
+					"help",
+					"alpha",
+					"dashboard",
+					"neo-tree",
+					"Trouble",
+					"trouble",
+					"lazy",
+					"mason",
+					"notify",
+					"toggleterm",
+					"lazyterm",
+				},
+				callback = function()
+					vim.b["miniindentscope_disable"] = true
+				end,
+			})
+		end,
+	},
 }
 
 return plugins

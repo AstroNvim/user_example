@@ -227,6 +227,7 @@ local plugins = {
 		cond = not vim.g.vscode,
 		opts = function(_, opts)
 			-- credits: https://github.com/kevinhwang91/nvim-ufo/issues/150
+			-- NOTE: this can also easily break and the fold level doesnt limit till the max nested of folds
 			do
 				-- Ensure our ufo foldlevel is set for the buffer
 				vim.api.nvim_create_autocmd("BufReadPre", {

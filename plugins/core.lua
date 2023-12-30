@@ -80,8 +80,17 @@ local plugins = {
 		dependencies = {
 			"LinArcX/telescope-env.nvim",
 		},
-		config = function()
+		opts = function()
 			require("telescope").load_extension("env")
+			return {
+				defaults = {
+					layout_config = {
+						horizontal = {
+							prompt_position = "bottom",
+						},
+					},
+				},
+			}
 		end,
 	},
 	-- TEST: buffer completion doesnt work on all files? need to test later.

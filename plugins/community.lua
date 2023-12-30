@@ -13,7 +13,11 @@ local function add(plugins)
 	end
 end
 
--- seperate the section so it will be more readable
+local dependencies = require("user.utils.dependencies")
+local has_excecutable = dependencies.has_excecutable
+local is_on_alpine = dependencies.is_on_alpine
+
+-- seperating into sections so it is more readable
 
 add({
 	{ import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
@@ -27,24 +31,94 @@ add({
 })
 
 add({
-	-- TODO: also see this: https://github.com/chaozwn/astronvim_with_coc_or_mason/blob/4a59dea217ae9c931764bea64b2085c0a9a8e27c/plugins/community-pack.lua#L2
-	-- { import = "astrocommunity.pack.angular" },
-	{ import = "astrocommunity.pack.ansible" },
-	{ import = "astrocommunity.pack.bash" },
-	{ import = "astrocommunity.pack.cmake" },
-	{ import = "astrocommunity.pack.cpp" },
-	{ import = "astrocommunity.pack.cs" },
-	{ import = "astrocommunity.pack.docker" },
-	{ import = "astrocommunity.pack.html-css" },
-	{ import = "astrocommunity.pack.json" },
-	{ import = "astrocommunity.pack.lua" },
-	{ import = "astrocommunity.pack.markdown" },
-	{ import = "astrocommunity.pack.ps1" },
-	{ import = "astrocommunity.pack.python" },
-	{ import = "astrocommunity.pack.rust" },
-	{ import = "astrocommunity.pack.toml" },
-	{ import = "astrocommunity.pack.typescript-all-in-one" },
-	{ import = "astrocommunity.pack.yaml" },
+	-- TEST: test without npm
+	-- try maybe the enable option and do has() to see if the excecutables are installed
+
+	--inspired by: https://github.com/chaozwn/astronvim_with_coc_or_mason/blob/4a59dea217ae9c931764bea64b2085c0a9a8e27c/plugins/community-pack.lua#L2
+	{
+		import = "astrocommunity.pack.angular",
+		cond = has_excecutable("npm"),
+	},
+	{
+		import = "astrocommunity.pack.ansible",
+		cond = has_excecutable("npm") and has_excecutable("python3"),
+	},
+	{
+		import = "astrocommunity.pack.bash",
+		cond = has_excecutable("npm"),
+	},
+	{
+		import = "astrocommunity.pack.cmake",
+		cond = has_excecutable("cargo"),
+	},
+	{
+		-- NOTE: even if these dependencies have been installed in alpine, mason doesnt want to install clangd or codelldb
+		--       theres also an issue about it. https://github.com/williamboman/mason.nvim/issues/1402
+		import = "astrocommunity.pack.cpp",
+		cond = not is_on_alpine()
+			and has_excecutable("unzip")
+			and (
+				has_excecutable("cc")
+				or has_excecutable("gcc")
+				or has_excecutable("clangd")
+				or has_excecutable("cl")
+				or has_excecutable("zig")
+			),
+	},
+	{
+		import = "astrocommunity.pack.cs",
+		cond = has_excecutable("dotnet"),
+	},
+	{
+		import = "astrocommunity.pack.docker",
+		cond = has_excecutable("npm"),
+	},
+	{
+		import = "astrocommunity.pack.html-css",
+		cond = has_excecutable("npm"),
+	},
+	{
+		import = "astrocommunity.pack.json",
+		cond = has_excecutable("npm"),
+	},
+	{
+		import = "astrocommunity.pack.lua",
+		-- NOTE: needs luarocks for stylua, also luacheck is unsupported on alpine.
+		--       yet have it commented so alpine has a ls atleast
+		-- cond = has_excecutable("luarocks"),
+	},
+	{
+		import = "astrocommunity.pack.markdown",
+		cond = has_excecutable("npm"),
+	},
+	{
+		import = "astrocommunity.pack.ps1",
+		cond = has_excecutable("npm"),
+	},
+	{
+		import = "astrocommunity.pack.python",
+		cond = has_excecutable("npm") and has_excecutable("python3"),
+	},
+	{
+		import = "astrocommunity.pack.rust",
+		cond = has_excecutable("unzip") and has_excecutable("cargo"),
+	},
+	{
+		import = "astrocommunity.pack.toml",
+		cond = has_excecutable("npm"),
+	},
+	{
+		import = "astrocommunity.pack.typescript-all-in-one",
+		cond = has_excecutable("deno"),
+	},
+	{
+		import = "astrocommunity.pack.yaml",
+		cond = has_excecutable("npm"),
+	},
+	{
+		import = "astrocommunity.pack.nix",
+		cond = has_excecutable("cargo"),
+	},
 })
 
 add({
@@ -110,8 +184,10 @@ add({
 })
 
 add({
-	{ import = "astrocommunity.markdown-and-latex.peek-nvim" },
-	{ import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
+	{
+		import = "astrocommunity.markdown-and-latex.peek-nvim",
+		cond = has_excecutable("deno"),
+	},
 })
 
 add({
@@ -153,12 +229,30 @@ add({
 			},
 			-- credits: https://code.mehalter.com/AstroNvim_user/~files/b9d13b6af65fa7c6ec271063355b4625af93b52e/lua/plugins/noice.lua
 			routes = {
-				{ filter = { event = "msg_show", cmdline = "^:lua" }, view = "messages" }, -- send lua output to split
-				{ filter = { event = "msg_show", min_height = 20 }, view = "messages" }, -- send long messages to split
-				{ filter = { event = "msg_show", find = "%d+L,%s%d+B" }, opts = { skip = true } }, -- skip save notifications
-				{ filter = { event = "msg_show", find = "^%d+ more lines$" }, opts = { skip = true } }, -- skip paste notifications
-				{ filter = { event = "msg_show", find = "^%d+ fewer lines$" }, opts = { skip = true } }, -- skip delete notifications
-				{ filter = { event = "msg_show", find = "^%d+ lines yanked$" }, opts = { skip = true } }, -- skip yank notifications
+				{
+					filter = { event = "msg_show", cmdline = "^:lua" },
+					view = "messages",
+				}, -- send lua output to split
+				{
+					filter = { event = "msg_show", min_height = 20 },
+					view = "messages",
+				}, -- send long messages to split
+				{
+					filter = { event = "msg_show", find = "%d+L,%s%d+B" },
+					opts = { skip = true },
+				}, -- skip save notifications
+				{
+					filter = { event = "msg_show", find = "^%d+ more lines$" },
+					opts = { skip = true },
+				}, -- skip paste notifications
+				{
+					filter = { event = "msg_show", find = "^%d+ fewer lines$" },
+					opts = { skip = true },
+				}, -- skip delete notifications
+				{
+					filter = { event = "msg_show", find = "^%d+ lines yanked$" },
+					opts = { skip = true },
+				}, -- skip yank notifications
 			},
 		},
 	},

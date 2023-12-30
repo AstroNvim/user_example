@@ -1,5 +1,6 @@
--- TODO: ensure the plugin is available. https://github.com/chaozwn/astronvim_with_coc_or_mason/blob/4a59dea217ae9c931764bea64b2085c0a9a8e27c/keymaps.lua#L12
-return {
+local is_available = require("astronvim.utils").is_available
+
+local mappings = {
 	n = {
 		-- better buffer navigation
 		["]b"] = false,
@@ -48,7 +49,7 @@ return {
 		["N"] = { "Nzzzv" },
 		["Q"] = { "nop" },
 
-		-- yank to system clibpard
+		-- yank to system clipboard
 		["<leader>y"] = { '"+y', desc = "Yank to system clipboard" },
 		["<leader>Y"] = { '"+Y', desc = "Yank from system clipboard" },
 
@@ -58,7 +59,7 @@ return {
 
 		-- credits: https://code.mehalter.com/AstroNvim_user/~files/91d8255ef1d901067621420b0e90e92f4ba8b0ee/mappings.lua?position=source-27.1-29.52-1
 		-- better increment/decrement
-		["-"] = { "<C-x>", desc = "Descrement number" },
+		["-"] = { "<C-x>", desc = "Decrement number" },
 		["+"] = { "<C-a>", desc = "Increment number" },
 
 		["<leader>."] = {
@@ -77,7 +78,6 @@ return {
 			desc = "Open Projects",
 		},
 	},
-	t = {},
 	x = {
 		["<leader>y"] = { '"+y', desc = "Yank to system clipboard" },
 
@@ -86,3 +86,10 @@ return {
 		["-"] = { "g<C-x>", desc = "Descrement number" },
 	},
 }
+
+if is_available("todo-comments.nvim") then
+	mappings.n["<leader>xt"] = { "<cmd>TodoTrouble<cr>", desc = "Todo trouble" }
+	mappings.n["<leader>xT"] = { "<cmd>TodoTelescope<cr>", desc = "Todo telescope" }
+end
+
+return mappings

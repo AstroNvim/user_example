@@ -2,6 +2,8 @@
 -- TODO: neogen and implement like this: https://code.mehalter.com/AstroNvim_user/~files/v4/lua/plugins/neogen.lua
 -- TODO: seems interesting, does also include vscode tasks https://github.com/stevearc/overseer.nvim
 
+local is_on_glibc = require("user.utils.dependencies").is_on_glibc
+
 ---@type LazySpec
 local plugins = {
 	{
@@ -138,6 +140,7 @@ local plugins = {
 			"nvim-lua/plenary.nvim",
 			"hrsh7th/nvim-cmp",
 		},
+		cond = is_on_glibc(),
 		config = function()
 			require("codeium").setup({})
 		end,

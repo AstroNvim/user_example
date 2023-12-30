@@ -101,7 +101,7 @@ add({
 	},
 	{
 		import = "astrocommunity.pack.rust",
-		cond = has_excecutable("cargo"),
+		cond = has_excecutable("unzip") and has_excecutable("cargo"),
 	},
 	{
 		import = "astrocommunity.pack.toml",

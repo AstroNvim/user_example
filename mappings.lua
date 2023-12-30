@@ -59,7 +59,13 @@ return {
 		["<leader>xt"] = { "<cmd>TodoTrouble<cr>", desc = "Todo trouble" },
 		["<leader>xT"] = { "<cmd>TodoTelescope<cr>", desc = "Todo telescope" },
 
-		["<leader>."] = { "<Cmd>cd %:p:h<CR>", desc = "Set CWD" },
+		["<leader>."] = {
+			function()
+				vim.cmd.cd("%:p:h")
+				vim.notify("current working directory set to:\n" .. vim.fn.getcwd())
+			end,
+			desc = "Set CWD",
+		},
 
 		-- quick save and quit
 		["<C-s>"] = { ":w!<cr>", desc = "Save and quit" }, -- change description but the same command

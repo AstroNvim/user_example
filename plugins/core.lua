@@ -213,8 +213,67 @@ local plugins = {
 	{
 		"kevinhwang91/nvim-ufo",
 		cond = not vim.g.vscode,
-		-- credits: https://github.com/kevinhwang91/nvim-ufo/blob/c6d88523f574024b788f1c3400c5d5b9bb1a0407/README.md?plain=1#L332-L358
 		opts = function(_, opts)
+			-- credits: https://github.com/kevinhwang91/nvim-ufo/issues/150
+			do
+				-- Ensure our ufo foldlevel is set for the buffer
+				vim.api.nvim_create_autocmd("BufReadPre", {
+					callback = function()
+						vim.b["ufo_foldlevel"] = 0
+					end,
+				})
+
+				---@param num integer Set the fold level to this number
+				local set_buf_foldlevel = function(num)
+					vim.b["ufo_foldlevel"] = 0
+					require("ufo").closeFoldsWith(num)
+				end
+
+				---@param num integer The amount to change the UFO fold level by
+				local change_buf_foldlevel_by = function(num)
+					local foldlevel = vim.b.ufo_foldlevel or 0
+					-- Ensure the foldlevel can't be set negatively
+					if foldlevel + num >= 0 then
+						foldlevel = foldlevel + num
+					else
+						foldlevel = 0
+					end
+					set_buf_foldlevel(foldlevel)
+				end
+
+				require("astronvim.utils").set_mappings({
+					n = {
+						["zm"] = {
+							function()
+								local count = vim.v.count
+								if count == 0 then count = 1 end
+								change_buf_foldlevel_by(-count)
+							end,
+							desc = "fold more",
+						},
+						["zr"] = {
+							function()
+								local count = vim.v.count
+								if count == 0 then count = 1 end
+								change_buf_foldlevel_by(count)
+							end,
+							desc = "Fold less",
+						},
+						["zS"] = {
+							function()
+								if vim.v.count == 0 then
+									vim.notify("No foldlevel given to set!", vim.log.levels.WARN)
+								else
+									set_buf_foldlevel(vim.v.count)
+								end
+							end,
+							desc = "UFO: Set Foldlevel",
+						},
+					},
+				})
+			end
+
+			-- credits: https://github.com/kevinhwang91/nvim-ufo/blob/c6d88523f574024b788f1c3400c5d5b9bb1a0407/README.md?plain=1#L332-L358
 			local handler = function(virtText, lnum, endLnum, width, truncate)
 				local newVirtText = {}
 				local suffix = (" 󰁂 %d "):format(endLnum - lnum)

@@ -51,20 +51,9 @@ local plugins = {
 		end,
 	},
 	{
-		"nvim-neo-tree/neo-tree.nvim",
-		opts = {
-			default_component_configs = {
-				indent = {
-					with_expanders = true,
-					expander_collapsed = "",
-					expander_expanded = "",
-					expander_highlight = "NeoTreeExpander",
-				},
-			},
-		},
-	},
-	{
 		"nvim-treesitter",
+		---@type TSConfig
+		---@diagnostic disable-next-line
 		opts = {
 			incremental_selection = {
 				enable = true,
@@ -220,6 +209,14 @@ local plugins = {
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		opts = {
+			default_component_configs = {
+				indent = {
+					with_expanders = true,
+					expander_collapsed = "",
+					expander_expanded = "",
+					expander_highlight = "NeoTreeExpander",
+				},
+			},
 			filesystem = {
 				filtered_items = {
 					always_show = {
@@ -243,6 +240,7 @@ local plugins = {
 	{
 		"kevinhwang91/nvim-ufo",
 		cond = not vim.g.vscode,
+		---@param opts UfoConfig
 		opts = function(_, opts)
 			-- credits: https://github.com/kevinhwang91/nvim-ufo/issues/150
 			-- NOTE: this can also easily break and the fold level doesnt limit till the max nested of folds

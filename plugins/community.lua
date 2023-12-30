@@ -150,6 +150,7 @@ add({
 	{ import = "astrocommunity.editing-support.rainbow-delimiters-nvim" },
 	{
 		"HiPhish/rainbow-delimiters.nvim",
+		---@type rainbow_delimiters.config
 		opts = {
 			highlight = {
 				-- "RainbowDelimiterRed",
@@ -222,6 +223,7 @@ add({
 	{ import = "astrocommunity.utility.noice-nvim" },
 	{
 		"folke/noice.nvim",
+		---@type NoiceConfig
 		opts = {
 			lsp = {
 				signature = { enabled = false },

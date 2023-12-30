@@ -9,7 +9,6 @@ local plugins = {
 	{
 		"nvim-treesitter/nvim-treesitter-context",
 		event = "User AstroFile",
-		opts = {},
 		keys = {
 			---@diagnostic disable-next-line id is used internally in lazy.nvim
 			{
@@ -37,9 +36,17 @@ local plugins = {
 		event = vim.env["OPENAI_API_KEY"] ~= nil and "VeryLazy" or nil,
 		enable = vim.env["OPENAI_API_KEY"] ~= nil,
 		-- commit = "24bcca7", -- TODO: got this fixed yet?
+		opts = {
+			-- NOTE: plugin has a bug, this below doesnt work yet
+			-- api_key_cmd = ("/usr/bin/bw --session '" .. (vim.env["BW_SESSION"] or "") .. "' get item chatgpt")
+			-- 	.. " | /usr/bin/jq -r '.fields"
+			-- 	.. ' | map(select(.name == "api key"))'
+			-- 	.. " | .[0].value'",
+		},
 		config = function(_, opts)
 			require("chatgpt").setup(opts)
 
+			--TODO: use astronvim keymap setting
 			local wk = require("which-key")
 			wk.register({
 				["<leader>a"] = {
@@ -112,13 +119,6 @@ local plugins = {
 			"MunifTanjim/nui.nvim",
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope.nvim",
-		},
-		opts = {
-			-- NOTE: plugin has a bug, this below doesnt work yet
-			-- api_key_cmd = ("/usr/bin/bw --session '" .. (vim.env["BW_SESSION"] or "") .. "' get item chatgpt")
-			-- 	.. " | /usr/bin/jq -r '.fields"
-			-- 	.. ' | map(select(.name == "api key"))'
-			-- 	.. " | .[0].value'",
 		},
 	},
 	-- {
@@ -204,6 +204,7 @@ local plugins = {
 					},
 				},
 			})
+			return {}
 		end,
 		event = "User AstroFile",
 		cmd = { "TodoTrouble", "TodoTelescope", "TodoLocList", "TodoQuickFix" },
@@ -212,6 +213,8 @@ local plugins = {
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		event = "User AstroFile",
+		---@type ibl.indent_options
+		---@diagnostic disable-next-line
 		opts = {
 			indent = {
 				char = "▏",

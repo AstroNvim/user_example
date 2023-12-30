@@ -256,13 +256,13 @@ local plugins = {
 
 				---@param num integer Set the fold level to this number
 				local set_buf_foldlevel = function(num)
-					vim.b["ufo_foldlevel"] = 0
+					vim.b["ufo_foldlevel"] = num
 					require("ufo").closeFoldsWith(num)
 				end
 
 				---@param num integer The amount to change the UFO fold level by
 				local change_buf_foldlevel_by = function(num)
-					local foldlevel = vim.b.ufo_foldlevel or 0
+					local foldlevel = vim.b["ufo_foldlevel"] or 0
 					-- Ensure the foldlevel can't be set negatively
 					if foldlevel + num >= 0 then
 						foldlevel = foldlevel + num

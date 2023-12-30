@@ -75,31 +75,71 @@ local plugins = {
 			-- 	.. " | .[0].value'",
 		},
 	},
+	-- {
+	--  -- FIXME: <C-;> and <C-,> do not work?
+	--
+	-- 	-- credits: https://github.com/AstroNvim/astrocommunity/blob/6f3ce1b6349a29975cbd1af8427f7a52aaef936d/lua/astrocommunity/completion/codeium-vim/init.lua
+	-- 	"Exafunction/codeium.vim",
+	-- 	event = "User AstroFile",
+	-- 	cond = is_on_glibc(),
+	-- 	config = function()
+	-- 		require("astronvim.utils").set_mappings({
+	-- 			i = {
+	-- 				["<C-g>"] = {
+	-- 					function()
+	-- 						return vim.fn["codeium#Accept"]()
+	-- 					end,
+	-- 					desc = "Codeium accept completion",
+	-- 					expr = true,
+	-- 				},
+	-- 				["<c-;>"] = {
+	-- 					function()
+	-- 						return vim.fn["codeium#CycleCompletions"](1)
+	-- 					end,
+	-- 					desc = "Codeium cycle completions forwards",
+	-- 					expr = true,
+	-- 				},
+	-- 				["<c-,>"] = {
+	-- 					function()
+	-- 						print("hello")
+	-- 						return vim.fn["codeium#CycleCompletions"](-1)
+	-- 					end,
+	-- 					desc = "Codeium cycle completions backwards",
+	-- 					expr = true,
+	-- 				},
+	-- 				["<c-x>"] = {
+	-- 					function()
+	-- 						return vim.fn["codeium#Clear"]()
+	-- 					end,
+	-- 					desc = "Codeium clear completions",
+	-- 					expr = true,
+	-- 				},
+	-- 			},
+	-- 			n = {
+	-- 				["<leader>uA"] = {
+	-- 					function()
+	-- 						if vim.g.codeium_enabled == true then
+	-- 							vim.cmd("CodeiumDisable")
+	-- 						else
+	-- 							vim.cmd("CodeiumEnable")
+	-- 						end
+	-- 					end,
+	-- 					desc = "Toggle Codeium active",
+	-- 					expr = true,
+	-- 				},
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 	{
-		-- credits: https://github.com/AstroNvim/astrocommunity/blob/6f3ce1b6349a29975cbd1af8427f7a52aaef936d/lua/astrocommunity/completion/codeium-vim/init.lua
-		-- FIXME: <C-;> and <C-,> not working?
-		"Exafunction/codeium.vim",
+		"Exafunction/codeium.nvim",
 		event = "User AstroFile",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"hrsh7th/nvim-cmp",
+		},
 		config = function()
-			vim.keymap.set("i", "<C-g>", function()
-				return vim.fn["codeium#Accept"]()
-			end, { expr = true })
-			vim.keymap.set("i", "<c-;>", function()
-				return vim.fn["codeium#CycleCompletions"](1)
-			end, { expr = true })
-			vim.keymap.set("i", "<c-,>", function()
-				return vim.fn["codeium#CycleCompletions"](-1)
-			end, { expr = true })
-			vim.keymap.set("i", "<c-x>", function()
-				return vim.fn["codeium#Clear"]()
-			end, { expr = true })
-			vim.keymap.set("n", "<leader>uA", function()
-				if vim.g.codeium_enabled == true then
-					vim.cmd("CodeiumDisable")
-				else
-					vim.cmd("CodeiumEnable")
-				end
-			end, { noremap = true, desc = "Toggle Codeium active" })
+			require("codeium").setup({})
 		end,
 	},
 	{

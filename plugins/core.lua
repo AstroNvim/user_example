@@ -78,11 +78,11 @@ local plugins = {
 			"lukas-reineke/cmp-under-comparator",
 			"chrisgrieser/cmp-nerdfont",
 		},
-		---@param opts cmp.ConfigSchema
-		---@return cmp.ConfigSchema
 		opts = function(_, opts)
 			local cmp = require("cmp")
-			return require("astronvim.utils").extend_tbl(opts, {
+
+			---@type cmp.ConfigSchema
+			local config = {
 				window = {
 					documentation = {
 						max_width = 60,
@@ -91,13 +91,16 @@ local plugins = {
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp", priority = 1000 },
 					{ name = "nvim_lua", priority = 900 },
+					{ name = "codeium", priority = 800 },
 					{ -- credits: https://github.com/catgoose/nvim/blob/279618115977b652eff339d627eeab3c616347a2/lua/plugins/cmp.lua#L70-L78
 						name = "luasnip",
 						group_index = 1,
 						option = { use_show_condition = false },
 						entry_filter = function()
 							local context = require("cmp.config.context")
-							return not context.in_treesitter_capture("string")
+							return not context.in_treesitter_capture(
+									"string"
+								)
 								and not context.in_syntax_group("String")
 								and not context.in_treesitter_capture("comment")
 								and not context.in_syntax_group("Comment")
@@ -110,8 +113,22 @@ local plugins = {
 					{ name = "calc", priority = 100 },
 					{ name = "buffer", keyword_length = 2 },
 				}),
-				{},
+				formatting = {
+					expandable_indicator = true,
+					fields = {
+						"kind",
+						"abbr",
+						"menu",
+					},
+					format = require("lspkind").cmp_format({
+						mode = "symbol",
+						maxwidth = 50,
+						ellipsis_char = "...",
+						symbol_map = { Codeium = "" },
+					}),
+				},
 				sorting = {
+					priority_weight = 1,
 					comparators = {
 						cmp.config.compare.offset,
 						cmp.config.compare.exact,
@@ -128,14 +145,19 @@ local plugins = {
 					--   max_view_entries = 50,
 					-- },
 				},
-			})
+				experimental = {
+					ghost_text = true,
+				},
+			}
+
+			return require("astronvim.utils").extend_tbl(opts, config)
 		end,
 		---@param opts cmp.ConfigSchema
 		config = function(_, opts)
 			require("cmp").setup(opts)
 
 			local cmp = require("cmp")
-			---@diagnostic disable-next-line
+
 			cmp.setup.cmdline({ "/", "?" }, {
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = {
@@ -143,7 +165,6 @@ local plugins = {
 				},
 			})
 
-			---@diagnostic disable-next-line
 			cmp.setup.cmdline(":", {
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = cmp.config.sources({

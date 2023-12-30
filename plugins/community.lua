@@ -82,9 +82,10 @@ add({
 		cond = has_excecutable("npm"),
 	},
 	{
-		-- TEST: does it need lua and luarocks?
 		import = "astrocommunity.pack.lua",
-		cond = has_excecutable("lua") and has_excecutable("luarocks"),
+		-- NOTE: needs luarocks for stylua, also luacheck is unsupported on alpine.
+		--       yet have it commented so alpine has a ls atleast
+		-- cond = has_excecutable("luarocks"),
 	},
 	{
 		import = "astrocommunity.pack.markdown",
@@ -96,7 +97,7 @@ add({
 	},
 	{
 		import = "astrocommunity.pack.python",
-		cond = has_excecutable("python"),
+		cond = has_excecutable("npm") and has_excecutable("python3"),
 	},
 	{
 		import = "astrocommunity.pack.rust",
@@ -115,11 +116,8 @@ add({
 		cond = has_excecutable("npm"),
 	},
 	{
-		-- TEST: does it really need only these packages?
 		import = "astrocommunity.pack.nix",
-		cond = has_excecutable("alejandra")
-			and has_excecutable("deadnix")
-			and has_excecutable("statix"),
+		cond = has_excecutable("cargo"),
 	},
 })
 

@@ -61,9 +61,6 @@ return {
 		["-"] = { "<C-x>", desc = "Descrement number" },
 		["+"] = { "<C-a>", desc = "Increment number" },
 
-		["<leader>xt"] = { "<cmd>TodoTrouble<cr>", desc = "Todo trouble" },
-		["<leader>xT"] = { "<cmd>TodoTelescope<cr>", desc = "Todo telescope" },
-
 		["<leader>."] = {
 			function()
 				vim.cmd.cd("%:p:h")

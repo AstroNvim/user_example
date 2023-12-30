@@ -63,6 +63,18 @@ local plugins = {
 			},
 		},
 	},
+	{
+		"nvim-treesitter",
+		opts = {
+			incremental_selection = {
+				enable = true,
+				keymaps = {
+					node_incremental = "v",
+					node_decremental = "V",
+				},
+			},
+		},
+	},
 	-- TEST: buffer completion doesnt work on all files? need to test later.
 	{
 		"hrsh7th/nvim-cmp",

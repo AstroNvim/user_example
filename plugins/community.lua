@@ -89,7 +89,7 @@ add({
 		},
 	},
 	{ import = "astrocommunity.editing-support.suda-vim" },
-	{ import = "astrocommunity.editing-support.treesj" },
+	{ import = "astrocommunity.editing-support.mini-splitjoin" },
 	{ import = "astrocommunity.editing-support.true-zen-nvim" },
 	{ import = "astrocommunity.editing-support.vim-move" },
 })

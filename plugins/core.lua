@@ -293,7 +293,10 @@ local plugins = {
 						["zS"] = {
 							function()
 								if vim.v.count == 0 then
-									vim.notify("No foldlevel given to set!", vim.log.levels.WARN)
+									vim.notify(
+										"No foldlevel given to set!",
+										vim.log.levels.WARN
+									)
 								else
 									set_buf_foldlevel(vim.v.count)
 								end
@@ -323,7 +326,10 @@ local plugins = {
 						chunkWidth = vim.fn.strdisplaywidth(chunkText)
 						-- str width returned from truncate() may less than 2nd argument, need padding
 						if curWidth + chunkWidth < targetWidth then
-							suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
+							suffix = suffix
+								.. (" "):rep(
+									targetWidth - curWidth - chunkWidth
+								)
 						end
 						break
 					end

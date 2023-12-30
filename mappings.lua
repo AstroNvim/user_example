@@ -7,13 +7,17 @@ local mappings = {
 		["[b"] = false,
 		["<S-l>"] = {
 			function()
-				require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1)
+				require("astronvim.utils.buffer").nav(
+					vim.v.count > 0 and vim.v.count or 1
+				)
 			end,
 			desc = "Next buffer",
 		},
 		["<S-h>"] = {
 			function()
-				require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1))
+				require("astronvim.utils.buffer").nav(
+					-(vim.v.count > 0 and vim.v.count or 1)
+				)
 			end,
 			desc = "Previous buffer",
 		},
@@ -21,9 +25,11 @@ local mappings = {
 		["<leader>b"] = { name = "Buffers" },
 		["<leader>bD"] = {
 			function()
-				require("astronvim.utils.status").heirline.buffer_picker(function(bufnr)
-					require("astronvim.utils.buffer").close(bufnr)
-				end)
+				require("astronvim.utils.status").heirline.buffer_picker(
+					function(bufnr)
+						require("astronvim.utils.buffer").close(bufnr)
+					end
+				)
 			end,
 			desc = "Pick to close",
 		},
@@ -65,7 +71,9 @@ local mappings = {
 		["<leader>."] = {
 			function()
 				vim.cmd.cd("%:p:h")
-				vim.notify("current working directory set to:\n" .. vim.fn.getcwd())
+				vim.notify(
+					"current working directory set to:\n" .. vim.fn.getcwd()
+				)
 			end,
 			desc = "Set CWD",
 		},
@@ -89,7 +97,8 @@ local mappings = {
 
 if is_available("todo-comments.nvim") then
 	mappings.n["<leader>xt"] = { "<cmd>TodoTrouble<cr>", desc = "Todo trouble" }
-	mappings.n["<leader>xT"] = { "<cmd>TodoTelescope<cr>", desc = "Todo telescope" }
+	mappings.n["<leader>xT"] =
+		{ "<cmd>TodoTelescope<cr>", desc = "Todo telescope" }
 end
 
 return mappings

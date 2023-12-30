@@ -75,6 +75,15 @@ local plugins = {
 			},
 		},
 	},
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = {
+			"LinArcX/telescope-env.nvim",
+		},
+		config = function()
+			require("telescope").load_extension("env")
+		end,
+	},
 	-- TEST: buffer completion doesnt work on all files? need to test later.
 	{
 		"hrsh7th/nvim-cmp",

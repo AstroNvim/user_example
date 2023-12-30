@@ -104,13 +104,22 @@ local plugins = {
 	},
 	{
 		"folke/todo-comments.nvim",
-		opts = {},
+		opts = function()
+			require("astronvim.utils").set_mappings({
+				n = {
+					["<leader>xt"] = {
+						"<cmd>TodoTrouble<cr>",
+						desc = "Todo trouble",
+					},
+					["<leader>fT"] = {
+						"<cmd>TodoTelescope<cr>",
+						desc = "Todo telescope",
+					},
+				},
+			})
+		end,
 		event = "User AstroFile",
 		cmd = { "TodoTrouble", "TodoTelescope", "TodoLocList", "TodoQuickFix" },
-		keys = {
-			{ "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo trouble" },
-			{ "<leader>fT", "<cmd>TodoTelescope<cr>", desc = "Todo telescope" },
-		},
 	},
 }
 

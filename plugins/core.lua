@@ -110,7 +110,11 @@ local plugins = {
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp", priority = 1000 },
 					{ name = "nvim_lua", priority = 900 },
-					{ name = "codeium", priority = 800 },
+					{
+						-- NOTE: only through codeium.nvim, the native plugin for neovim
+						name = "codeium",
+						priority = 800,
+					},
 					{ -- credits: https://github.com/catgoose/nvim/blob/279618115977b652eff339d627eeab3c616347a2/lua/plugins/cmp.lua#L70-L78
 						name = "luasnip",
 						group_index = 1,
@@ -143,7 +147,10 @@ local plugins = {
 						mode = "symbol",
 						maxwidth = 50,
 						ellipsis_char = "...",
-						symbol_map = { Codeium = "" },
+						symbol_map = {
+							-- NOTE: only through codeium.nvim, the native plugin for neovim
+							-- Codeium = "",
+						},
 					}),
 				},
 				sorting = {
@@ -165,7 +172,7 @@ local plugins = {
 					-- },
 				},
 				experimental = {
-					ghost_text = true,
+					ghost_text = false,
 				},
 			}
 

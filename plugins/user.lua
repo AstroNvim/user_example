@@ -1,6 +1,7 @@
 -- TODO: might wanna install https://github.com/mg979/vim-visual-multi
 -- TODO: neogen and implement like this: https://code.mehalter.com/AstroNvim_user/~files/v4/lua/plugins/neogen.lua
 -- TODO: seems interesting, does also include vscode tasks https://github.com/stevearc/overseer.nvim
+-- TODO: could replace neo-tree with this https://github.com/kevinhwang91/rnvimr
 
 local is_on_glibc = require("user.utils.dependencies").is_on_glibc
 
@@ -121,74 +122,73 @@ local plugins = {
 			"nvim-telescope/telescope.nvim",
 		},
 	},
-	-- {
-	--  -- FIXME: <C-;> and <C-,> do not work?
-	--
-	-- 	-- credits: https://github.com/AstroNvim/astrocommunity/blob/6f3ce1b6349a29975cbd1af8427f7a52aaef936d/lua/astrocommunity/completion/codeium-vim/init.lua
-	-- 	"Exafunction/codeium.vim",
-	-- 	event = "User AstroFile",
-	-- 	cond = is_on_glibc(),
-	-- 	config = function()
-	-- 		require("astronvim.utils").set_mappings({
-	-- 			i = {
-	-- 				["<C-g>"] = {
-	-- 					function()
-	-- 						return vim.fn["codeium#Accept"]()
-	-- 					end,
-	-- 					desc = "Codeium accept completion",
-	-- 					expr = true,
-	-- 				},
-	-- 				["<c-;>"] = {
-	-- 					function()
-	-- 						return vim.fn["codeium#CycleCompletions"](1)
-	-- 					end,
-	-- 					desc = "Codeium cycle completions forwards",
-	-- 					expr = true,
-	-- 				},
-	-- 				["<c-,>"] = {
-	-- 					function()
-	-- 						print("hello")
-	-- 						return vim.fn["codeium#CycleCompletions"](-1)
-	-- 					end,
-	-- 					desc = "Codeium cycle completions backwards",
-	-- 					expr = true,
-	-- 				},
-	-- 				["<c-x>"] = {
-	-- 					function()
-	-- 						return vim.fn["codeium#Clear"]()
-	-- 					end,
-	-- 					desc = "Codeium clear completions",
-	-- 					expr = true,
-	-- 				},
-	-- 			},
-	-- 			n = {
-	-- 				["<leader>uA"] = {
-	-- 					function()
-	-- 						if vim.g.codeium_enabled == true then
-	-- 							vim.cmd("CodeiumDisable")
-	-- 						else
-	-- 							vim.cmd("CodeiumEnable")
-	-- 						end
-	-- 					end,
-	-- 					desc = "Toggle Codeium active",
-	-- 					expr = true,
-	-- 				},
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- },
 	{
-		"Exafunction/codeium.nvim",
+		-- credits: https://github.com/AstroNvim/astrocommunity/blob/6f3ce1b6349a29975cbd1af8427f7a52aaef936d/lua/astrocommunity/completion/codeium-vim/init.lua
+		"Exafunction/codeium.vim",
 		event = "User AstroFile",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"hrsh7th/nvim-cmp",
-		},
 		cond = is_on_glibc(),
 		config = function()
-			require("codeium").setup({})
+			require("astronvim.utils").set_mappings({
+				i = {
+					["<C-g>"] = {
+						function()
+							return vim.fn["codeium#Accept"]()
+						end,
+						desc = "Codeium accept completion",
+						expr = true,
+					},
+					["<c-n>"] = {
+						function()
+							return vim.fn["codeium#CycleCompletions"](1)
+						end,
+						desc = "Codeium next suggestion",
+						expr = true,
+					},
+					["<c-p>"] = {
+						function()
+							print("hello")
+							return vim.fn["codeium#CycleCompletions"](-1)
+						end,
+						desc = "Codeium previous suggestion",
+						expr = true,
+					},
+					["<c-x>"] = {
+						function()
+							return vim.fn["codeium#Clear"]()
+						end,
+						desc = "Codeium clear completions",
+						expr = true,
+					},
+				},
+				n = {
+					["<leader>uA"] = {
+						function()
+							if vim.g.codeium_enabled == true then
+								vim.cmd("CodeiumDisable")
+							else
+								vim.cmd("CodeiumEnable")
+							end
+						end,
+						desc = "Toggle Codeium active",
+						expr = true,
+					},
+				},
+			})
 		end,
 	},
+	-- {
+	-- 	-- NOTE: only gives suggestions through nvim-cmp now, maybe the author will change it.
+	-- 	"Exafunction/codeium.nvim",
+	-- 	event = "User AstroFile",
+	-- 	dependencies = {
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		"hrsh7th/nvim-cmp",
+	-- 	},
+	-- 	cond = is_on_glibc(),
+	-- 	config = function()
+	-- 		require("codeium").setup({})
+	-- 	end,
+	-- },
 	{
 		"folke/todo-comments.nvim",
 		opts = function()

@@ -1,8 +1,20 @@
 ---@param executable string
 ---@return boolean
 local function has_excecutable(executable)
-	-- TODO: warn the user if not found
-	return vim.fn.executable(executable) == 1
+	local is_installed = vim.fn.executable(executable) == 1
+
+	if not is_installed then
+		vim.api.nvim_create_autocmd("UIEnter", {
+			callback = function()
+				vim.notify_once(
+					executable .. " is not installed",
+					vim.log.levels.WARN
+				)
+			end,
+		})
+	end
+
+	return is_installed
 end
 
 ---@return boolean

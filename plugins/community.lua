@@ -31,9 +31,6 @@ add({
 })
 
 add({
-	-- TEST: test without npm
-	-- try maybe the enable option and do has() to see if the excecutables are installed
-
 	--inspired by: https://github.com/chaozwn/astronvim_with_coc_or_mason/blob/4a59dea217ae9c931764bea64b2085c0a9a8e27c/plugins/community-pack.lua#L2
 	{
 		import = "astrocommunity.pack.angular",

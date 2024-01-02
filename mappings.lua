@@ -2,6 +2,8 @@ local is_available = require("astronvim.utils").is_available
 
 local mappings = {
 	n = {
+		["<leader>o"] = false,
+
 		-- better buffer navigation
 		["]b"] = false,
 		["[b"] = false,
@@ -101,6 +103,13 @@ if is_available("todo-comments.nvim") then
 	mappings.n["<leader>xt"] = { "<cmd>TodoTrouble<cr>", desc = "Todo trouble" }
 	mappings.n["<leader>xT"] =
 		{ "<cmd>TodoTelescope<cr>", desc = "Todo telescope" }
+end
+
+if is_available("mini.operators") then
+	mappings.n["<leader>o"] = {
+		name = "Text edit operators",
+		desc = "Text edit operators", -- overwrite astronvims mapping because it gets merged
+	}
 end
 
 return mappings

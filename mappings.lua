@@ -59,6 +59,8 @@ local mappings = {
 		["<leader>y"] = { '"+y', desc = "Yank to system clipboard" },
 		["<leader>Y"] = { '"+Y', desc = "Yank from system clipboard" },
 
+		["<leader>r"] = { name = "Refactor" },
+
 		["<leader>T"] = { name = "Tab" },
 		["<leader>Tn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
 		["<leader>Tc"] = { "<cmd>tabclose<cr>", desc = "Close tab" },

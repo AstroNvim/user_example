@@ -167,6 +167,7 @@ add({
 			},
 		},
 	},
+	{ import = "astrocommunity.editing-support.refactoring-nvim" },
 	{ import = "astrocommunity.editing-support.suda-vim" },
 	{ import = "astrocommunity.editing-support.mini-splitjoin" },
 	{ import = "astrocommunity.editing-support.true-zen-nvim" },

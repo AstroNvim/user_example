@@ -4,10 +4,12 @@
 -- TODO: could replace neo-tree with this https://github.com/kevinhwang91/rnvimr
 
 local is_on_glibc = require("user.utils.dependencies").is_on_glibc
+local icons = require("user.icons")
 
 ---@type LazySpec
 local plugins = {
 	{
+		--TODO: add background color for tty
 		"nvim-treesitter/nvim-treesitter-context",
 		event = "User AstroFile",
 		keys = {
@@ -226,8 +228,8 @@ local plugins = {
 		---@diagnostic disable-next-line
 		opts = {
 			indent = {
-				char = "▏",
-				tab_char = "▏",
+				char = icons.scope_symbol,
+				tab_char = icons.scope_indent_tab_symbol,
 			},
 			scope = {
 				enabled = false,
@@ -254,7 +256,7 @@ local plugins = {
 		"echasnovski/mini.indentscope",
 		event = "User AstroFile",
 		opts = {
-			symbol = "▏",
+			symbol = icons.scope_symbol,
 			options = { try_as_border = true },
 		},
 		init = function()

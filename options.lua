@@ -1,3 +1,7 @@
+local is_tty = require("user.utils.helper").is_tty
+
+local icons = require("user.icons")
+
 return {
 	opt = {
 		relativenumber = true,
@@ -14,8 +18,8 @@ return {
 		list = true,
 		expandtab = false,
 		listchars = {
-			tab = "  »",
-			space = "·",
+			tab = icons.tab_char,
+			space = icons.space_char,
 		},
 		clipboard = "",
 		-- completeopt = "menu,menuone,noselect,noinsert",
@@ -26,9 +30,9 @@ return {
 		fillchars = {
 			eob = " ",
 			fold = " ",
-			foldopen = "",
-			foldsep = "│",
-			foldclose = "",
+			foldopen = icons.expander_expanded,
+			foldsep = icons.expander_separator,
+			foldclose = icons.expander_collapsed,
 		},
 	},
 	g = {
@@ -37,7 +41,7 @@ return {
 		cmp_enabled = true, -- enable completion at start
 		autopairs_enabled = true, -- enable autopairs at start
 		diagnostics_mode = 3, -- set the visibility of diagnostics in the UI (0=off, 1=only show in status line, 2=virtual text off, 3=all on)
-		icons_enabled = vim.env["TERM"] ~= "linux", -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
+		icons_enabled = not is_tty(), -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
 		ui_notifications_enabled = true, -- disable notifications when toggling UI elements
 		resession_enabled = false, -- enable experimental resession.nvim session management (will be default in AstroNvim v4)
 	},

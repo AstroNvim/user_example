@@ -1,3 +1,6 @@
+local icons = require("user.icons")
+local is_tty = require("user.utils.helper").is_tty
+
 ---@type LazySpec
 local plugins = {
 	{ "max397574/better-escape.nvim", enabled = false },
@@ -38,13 +41,22 @@ local plugins = {
 				"    ██   ████   ████   ██ ██      ██",
 			}
 
-			local button = require("astronvim.utils").alpha_button
+			local astro_alpha_button = require("astronvim.utils").alpha_button
+
+			---@param keybind string
+			---@param icon string
+			---@param title string
+			local button = function(keybind, icon, title)
+				icon = is_tty() and "*" or icon
+				return astro_alpha_button(keybind, icon .. title)
+			end
+
 			opts.section.buttons.val = {
-				button("LDR S l", "  Last Session  "),
-				button("LDR f o", "󰈙  Recents  "),
-				button("LDR S f", "  Find Recent sessions"),
-				button("LDR f p", "  Open Project  "),
-				button("LDR p c", "  Config  "),
+				button("LDR S l", "", "  Last Session  "),
+				button("LDR f o", "󰈙", "  Recents  "),
+				button("LDR S f", "", "  Find Recent sessions"),
+				button("LDR f p", "", "  Open Project  "),
+				button("LDR p c", "", "  Config  "),
 			}
 
 			return opts
@@ -99,6 +111,7 @@ local plugins = {
 		},
 		opts = function(_, opts)
 			local cmp = require("cmp")
+			local lspkind_status_ok, lspkind = pcall(require, "lspkind")
 
 			---@type cmp.ConfigSchema
 			local config = {
@@ -143,17 +156,18 @@ local plugins = {
 						"abbr",
 						"menu",
 					},
-					format = require("lspkind").cmp_format({
-						mode = "symbol",
-						maxwidth = 50,
-						ellipsis_char = "...",
-						symbol_map = {
-							-- NOTE: only through codeium.nvim, the native plugin for neovim
-							-- Codeium = "",
-						},
-					}),
-				},
-				sorting = {
+					format = lspkind_status_ok
+							and lspkind.cmp_format({
+								mode = "symbol",
+								maxwidth = 50,
+								ellipsis_char = "...",
+								symbol_map = {
+									-- NOTE: only through codeium.nvim, the native plugin for neovim
+									-- Codeium = "",
+								},
+							})
+						or nil,
+					sorting = {},
 					priority_weight = 1,
 					comparators = {
 						cmp.config.compare.offset,
@@ -219,8 +233,9 @@ local plugins = {
 			default_component_configs = {
 				indent = {
 					with_expanders = true,
-					expander_collapsed = "",
-					expander_expanded = "",
+					-- TODO: alternative icons for tty
+					expander_collapsed = icons.expander_collapsed,
+					expander_expanded = icons.expander_expanded,
 					expander_highlight = "NeoTreeExpander",
 				},
 			},
@@ -315,7 +330,9 @@ local plugins = {
 			-- credits: https://github.com/kevinhwang91/nvim-ufo/blob/c6d88523f574024b788f1c3400c5d5b9bb1a0407/README.md?plain=1#L332-L358
 			local handler = function(virtText, lnum, endLnum, width, truncate)
 				local newVirtText = {}
-				local suffix = (" 󰁂 %d "):format(endLnum - lnum)
+				local suffix = (" " .. icons.folded_symbol .. " %d "):format(
+					endLnum - lnum
+				)
 				local sufWidth = vim.fn.strdisplaywidth(suffix)
 				local targetWidth = width - sufWidth
 				local curWidth = 0

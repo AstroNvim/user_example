@@ -1,0 +1,9 @@
+---@class Icons
+---@field scope_symbol string
+---@field scope_indent_tab_symbol string
+---@field expander_collapsed string
+---@field expander_expanded string
+---@field expander_separator string
+---@field folded_symbol string
+---@field tab_char string
+---@field space_char string

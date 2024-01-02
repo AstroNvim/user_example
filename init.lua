@@ -1,3 +1,6 @@
+local is_tty = require("user.utils.helper").is_tty
+local when_else = require("user.utils.helper").when_else
+
 return {
 	-- Configure AstroNvim updates
 	updater = {
@@ -8,8 +11,8 @@ return {
 		commit = nil, -- commit hash (NIGHTLY ONLY)
 		pin_plugins = nil, -- nil, true, false (nil will pin plugins on stable only)
 		skip_prompts = false, -- skip prompts about breaking changes
-		show_changelog = true, -- show the changelog after performing an update
 		auto_quit = false, -- automatically quit the current session after a successful update
+		show_changelog = true, -- show the changelog after performing an update
 		remotes = { -- easily add new remotes to track
 			--   ["remote_name"] = "https://remote_url.come/repo.git", -- full remote url
 			--   ["remote2"] = "github_user/repo", -- GitHub user/repo shortcut,
@@ -19,7 +22,8 @@ return {
 
 	-- Set colorscheme to use
 	-- colorscheme = "astrodark",
-	colorscheme = "kanagawa-wave",
+	-- TODO: search for a tty colorscheme else evening looks ok too
+	colorscheme = when_else(is_tty(), "industry", "kanagawa-wave"),
 
 	-- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
 	diagnostics = {

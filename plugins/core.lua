@@ -233,7 +233,6 @@ local plugins = {
 			default_component_configs = {
 				indent = {
 					with_expanders = true,
-					-- TODO: alternative icons for tty
 					expander_collapsed = icons.expander_collapsed,
 					expander_expanded = icons.expander_expanded,
 					expander_highlight = "NeoTreeExpander",

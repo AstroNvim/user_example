@@ -100,7 +100,9 @@ local mappings = {
 }
 
 if is_available("todo-comments.nvim") then
+	-- BUG: todo trouble need web-devicons to be installed, in a tty its disabled
 	mappings.n["<leader>xt"] = { "<cmd>TodoTrouble<cr>", desc = "Todo trouble" }
+
 	mappings.n["<leader>xT"] =
 		{ "<cmd>TodoTelescope<cr>", desc = "Todo telescope" }
 end

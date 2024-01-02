@@ -34,12 +34,26 @@ local plugins = {
 	},
 	{
 		"jackMort/ChatGPT.nvim",
-		event = vim.env["OPENAI_API_KEY"] ~= nil and "VeryLazy" or nil,
-		enable = vim.env["OPENAI_API_KEY"] ~= nil,
-		-- commit = "24bcca7", -- TODO: got this fixed yet?
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+		event = "VeryLazy", -- NOTE: keybinds need to be registered
+		cmd = {
+			"ChatGPT",
+			"ChatGPTActAs",
+			"ChatGPTEditWithInstructions",
+			"ChatGPTRun",
+		},
+		cond = vim.env["OPENAI_API_KEY"] ~= nil,
 		opts = {
 			-- NOTE: plugin has a bug, this below doesnt work yet
-			-- api_key_cmd = ("/usr/bin/bw --session '" .. (vim.env["BW_SESSION"] or "") .. "' get item chatgpt")
+			-- api_key_cmd = (
+			-- 	"/usr/bin/bw --session '"
+			-- 	.. (vim.env["BW_SESSION"] or "")
+			-- 	.. "' get item chatgpt"
+			-- )
 			-- 	.. " | /usr/bin/jq -r '.fields"
 			-- 	.. ' | map(select(.name == "api key"))'
 			-- 	.. " | .[0].value'",
@@ -116,11 +130,6 @@ local plugins = {
 				},
 			})
 		end,
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
-		},
 	},
 	{
 		-- credits: https://github.com/AstroNvim/astrocommunity/blob/6f3ce1b6349a29975cbd1af8427f7a52aaef936d/lua/astrocommunity/completion/codeium-vim/init.lua
@@ -191,6 +200,8 @@ local plugins = {
 	-- },
 	{
 		"folke/todo-comments.nvim",
+		event = "User AstroFile",
+		cmd = { "TodoTrouble", "TodoTelescope", "TodoLocList", "TodoQuickFix" },
 		opts = function()
 			require("astronvim.utils").set_mappings({
 				n = {
@@ -206,8 +217,6 @@ local plugins = {
 			})
 			return {}
 		end,
-		event = "User AstroFile",
-		cmd = { "TodoTrouble", "TodoTelescope", "TodoLocList", "TodoQuickFix" },
 	},
 	-- credits: https://github.com/LazyVim/LazyVim/blob/879e29504d43e9f178d967ecc34d482f902e5a91/lua/lazyvim/plugins/ui.lua#L214-L275
 	{

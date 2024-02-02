@@ -18,6 +18,27 @@ return {
     --   desc = "Previous buffer",
     -- },
 
+    -- Reload nvim without restart
+      ["<leader>TR"] = {
+      function()
+          require("astronvim.utils").reload()
+          local hls_status = vim.v.hlsearch
+          for name,_ in pairs(package.loaded) do
+            if name:match('^cnull') then
+              package.loaded[name] = nil
+            end
+          end
+
+          dofile(vim.env.MYVIMRC)
+          if hls_status == 0 then
+            vim.opt.hlsearch = false
+          end
+          vim.notify("Nvim configuration reloaded!", vim.log.levels.INFO)
+      end,
+      desc = "Reload nvim"
+    },
+
+    
     -- mappings seen under group name "Buffer"
     ["<leader>bD"] = {
       function()
